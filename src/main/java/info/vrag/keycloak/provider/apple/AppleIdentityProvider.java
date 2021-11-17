@@ -41,7 +41,7 @@ public class AppleIdentityProvider extends OIDCIdentityProvider implements Socia
         SimpleHttp.Response response = null;
         try {
             response = request.asResponse();
-            if (false && response.getStatus() != 200) {
+            if (response.getStatus() != 200) {
                 throw new IdentityBrokerException("Can't perform request to [" + PROFILE_URL + "] Code: " + response.getStatus() + " Response: " + response.asString());
             }
         } catch (IOException e) {
@@ -56,12 +56,7 @@ public class AppleIdentityProvider extends OIDCIdentityProvider implements Socia
     private BrokeredIdentityContext getUserInfoFromResponse(SimpleHttp.Response response) {
         JsonNode jsonResponse = null;
         try {
-            //jsonResponse = response.asJson();
-
-            String trueResponse = "{\"access_token\":\"a5529c6b0451e43bc8b409c2a001635e6.0.rrtqy.j1gopLXw2Um2Bo-H9lLaew\",\"token_type\":\"Bearer\",\"expires_in\":3600,\"refresh_token\":\"rfd1f1fd805d3476c99b97ab1fdc3888d.0.rrtqy.tjd5g-HyHMHgAHThXJ0ahA\",\"id_token\":\"eyJraWQiOiJlWGF1bm1MIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwczovL2FwcGxlaWQuYXBwbGUuY29tIiwiYXVkIjoicnUua2lub2hvZCIsImV4cCI6MTYzNzIyNzI1OSwiaWF0IjoxNjM3MTQwODU5LCJzdWIiOiIwMDEzMDguNzFiNDEzZDk5NmNkNDVmNDlmZmM2NTE4NzMyZTNkNjMuMTExNCIsImF0X2hhc2giOiJfUUVoUTJDbkczSmhpRXZVWEJTRkhRIiwiZW1haWwiOiJraW5vaG9kQGtpbm9ob2QucnUiLCJlbWFpbF92ZXJpZmllZCI6InRydWUiLCJhdXRoX3RpbWUiOjE2MzcxNDA4MDQsIm5vbmNlX3N1cHBvcnRlZCI6dHJ1ZX0.avH98_AjdEtrE5wrNMhGIw0mU8HJm_eLt3rZgTclUwY4aok1srH31jl-CkQ0T708PQ4BFsSPHqQqb0CdXi2TqD6OEJsDM2UL1xCSQNpm7PE-JXhMMkmuhQkgBQGVTxnY4SUeAe3C_jY08vB8nJc1phjD80LXXFP1tPrUUy6HkrdV0BsagxD1NdG0npG8EUARPhLqx3sa8wNAhDNlOVYWHYjxxBmzRe28ifNymISSDpQe1eHr8WXzKB-oIwnuLMGn5SNbDyP8qvx-_1tCijljUi4Bza_f0BEEbYMGCGULMgDvSVH1TbPUpuka_xJK63h-N8eVeVP5pHpeTejADSjSqw\"}";
-            ObjectMapper mapper = new ObjectMapper();
-            jsonResponse = mapper.readTree(trueResponse);
-
+            jsonResponse = response.asJson();
         } catch (IOException e) {
            throw new IdentityBrokerException("Can't get response as json");
         }
