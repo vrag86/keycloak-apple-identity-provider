@@ -25,6 +25,18 @@ public class AppleIdentityProviderConfig extends OIDCIdentityProviderConfig {
         return getConfig().get("jwksUrl");
     }
 
+    public String getPrivateKey() {
+        return getConfig().get("applePrivateKey");
+    }
+
+    public String getKeyId() {
+        return getConfig().get("keyId");
+    }
+
+    public String getTeamId() {
+        return getConfig().get("teamId");
+    }
+
     @Override
     public boolean isValidateSignature() {
         return true;
